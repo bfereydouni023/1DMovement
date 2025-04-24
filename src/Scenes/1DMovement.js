@@ -4,7 +4,7 @@ class Movement extends Phaser.Scene {
         super("movementScene");
         this.my = {sprite: {}}; //create object to hold sprite bindings
 
-        this.player_X = 10;    //set starting player sprite x position
+        this.player_X = 200;    //set starting player sprite x position
         this.player_Y = 550;    //set starting player sprite y position
 
         this.flash_X = this.player_X;  //set starting x position of "Muzzle flash" the same as player sprite's
@@ -41,59 +41,41 @@ class Movement extends Phaser.Scene {
         my.sprite.flash.visible = false;    //flash starts invisible
 
         //use phaser keyboard for key polling
-        this.aKey = this.input.addKey(Phaser.Input.Keyboard.KeyCodes.A);    // 'a' key   
-        this.dKey = this.input.addKey(Phaser.Input.Keyboard.KeyCodes.D);    // 'd' key
-        this.leftArrow = this.input.addKey(Phaser.Input.Keyboard.KeyCodes.LEFT); //left arrow key
-        this.rightArrow = this.input.addKey(Phaser.Input.Keyboard.KeyCodes.RIGHT);  //right arrow key
-        this.bKey = this.input.addKey(Phaser.Input.Keyboard.KeyCodes.B);    //'b' key
+        this.aKey = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.A);    // 'a' key   
+        this.dKey = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.D);    // 'd' key
+        this.leftArrow = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.LEFT); //left arrow key
+        this.rightArrow = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.RIGHT);  //right arrow key
+        this.bKey = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.B);    //'b' key
     }
 
     update() {
         let my = this.my;
 
-        if(Phaser.Input.Keyboard.justDown(this.aKey) || Phaser.Input.Keyboard.isDown(this.aKey) 
-            || Phaser.Input.Keyboard.justDown(this.leftArrow) || Phaser.Input.Keyboard.isDown(this.leftArrow)) {
+        if(this.aKey.isDown || this.leftArrow.isDown || this.aKey.JustDown || this.leftArrow.JustDown) {
                 
                 //if player is near left wall when 'a' or left arrow key pressed, dont move player sprite
-                if(this.player_X < 10) {
-                    this.player_X.x += 0;
-                    this.flash_X.x += 0;
-                }else{
-                    this.player_X.x -= 5;
-                    this.flash_X.x -= 5;
-
-                    /*
-                    if(this.player_X < 10) {
-                        this.player_X.x += 0;
-                    }
-                        */
+                if(my.sprite.player.x < 10) {
+                    my.sprite.player.x += 0;
+                    my.sprite.flash.x += 0;
+                }else {
+                    my.sprite.player.x -= 5;
+                    my.sprite.flash.x -= 5;
                 }
 
 
 
         }
 
-        if(Phaser.Input.Keyboard.justDown(this.dKey) || Phaser.Input.Keyboard.isDown(this.dKey) 
-            || Phaser.Input.Keyboard.justDown(this.rightArrow) || Phaser.Input.Keyboard.isDown(this.rightArrow)) {
+        if(this.dKey.isDown || this.rightArrow.isDown || this.dKey.JustDown || this.rightArrow.JustDown) {
                 
                 //if player is near left wall when 'a' or left arrow key pressed, dont move player sprite
-                if(this.player_X > 890) {
-                    this.player_X.x += 0;
-                    this.flash_X.x += 0;
-                }else{
-                    this.player_X.x += 5;
-                    this.flash_X.x += 5;
-
-                    /*
-                    if(this.player_X < 890) {
-                        this.player_X.x += 0;
-                        this.flash_Y.x += 0;
-                    }
-                        */
+                if(my.sprite.player.x > 790) {
+                    my.sprite.player.x += 0;
+                    my.sprite.flash.x += 0;
+                }else {
+                    my.sprite.player.x += 5;
+                    my.sprite.flash.x += 5;
                 }
-
-
-
         }
     }
 }
